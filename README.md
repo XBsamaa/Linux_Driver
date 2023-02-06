@@ -1,2 +1,2 @@
 # Linux_Driver
-Personal Linux Driver dir
+个人学习文件夹，用来学习Linux驱动开发
