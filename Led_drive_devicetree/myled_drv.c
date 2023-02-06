@@ -33,10 +33,10 @@ static struct file_operations led_opt =
 
 static int __init led_drv_init(void)
 {
-	//鐢宠涓昏澶囧彿
+	//申请主设备号
 	major = register_chrdev(0, "myled", &led_opt);
 
-	//杈呭姪鐢宠璁惧鑺傜偣
+	//辅助申请设备节点
 	led_class = class_create(THIS_MODULE, "myledclass");
 
 	return 0;

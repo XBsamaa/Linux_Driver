@@ -16,6 +16,9 @@
 #include <linux/gfp.h>
 #include <linux/platform_device.h>
 
+//¼ÇÂ¼×ÊÔ´ÎÄ¼ş£¬Ìá¹©¸ø²Ù×÷º¯Êı
+static struct resource* led_rsc;
+
 static int led_cnt = 0;
 
 extern void mydevice_ledcreate(int minor, const char* name);
@@ -23,31 +26,35 @@ extern void mydevice_leddestory(int minor);
 
 static int myimx6ull_100ask_led_probe(struct platform_device *pdev)
 {
-	int i = 0;
 	struct resource* res;
 
 	while(1){
-		//è·å–èµ„æºæ–‡ä»¶
-		res = platform_get_resource(pdev, IORESOURCE_IRQ, i);
+		//»ñÈ¡×ÊÔ´ÎÄ¼ş
+		res = platform_get_resource(pdev, IORESOURCE_IRQ, led_cnt);
+		
 		if(!res)
 			break;
-		//å‘å†…æ ¸æ³¨å†Œè®¾å¤‡
-		mydevice_ledcreate(i, res->name);
-		++i;
-		++led_cnt;
+		
+		//ÏòÄÚºË×¢²áÉè±¸
+		mydevice_ledcreate(led_cnt, res->name);
+
+		//¼ÇÂ¼×ÊÔ´ÎÄ¼ş
+		led_rsc[led_cnt] = *res;
+
+		led_cnt++;
 	}
 	
-	//æ˜ å°„åœ°å€ç©ºé—´
+	//Ó³ÉäµØÖ·¿Õ¼ä
 	printk("%s %s %d",__FILE__,__FUNCTION__,__LINE__);
 	return 0;
 }
 
 static int myimx6ull_100ask_led_remove(struct platform_device *pdev)
 {	
-	int i = 0;
-	for(; i < led_cnt; ++i)
+	while(led_cnt--)
 	{
-		mydevice_leddestory(i);
+		//ÏòÄÚºËÏú»ÙÉè±¸
+		mydevice_leddestory(led_cnt);
 	};
 	return 0;
 }
