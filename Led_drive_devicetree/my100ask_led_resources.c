@@ -6,17 +6,19 @@
 static struct resource myledsrc[] = 
 {
 	{
-		.start	=	0,
+		.start	=	0x20E0068,//IOMUXC_SW_MUX_CTL_PAD_GPIO1_IO03
+		.end	=	0x209C004,//GPIO direction register (GPIO1_GDIR)
 		.flags	=	IORESOURCE_IRQ,
 		.name	=	"myled2[1_3]",
 	},
 	{
-		.start	=	0,
+		.start	=	0x20E0070,//IOMUXC_SW_MUX_CTL_PAD_GPIO1_IO05
+		.end	=	0x209C000,//GPIO data register (GPIO1_DR)
 		.flags	=	IORESOURCE_IRQ,
 		.name	=	"myled3[1_5]",
 	},
 	{
-		.start	=	0,
+		.start	=	0x20E0074,//IOMUXC_SW_MUX_CTL_PAD_GPIO1_IO06
 		.flags	=	IORESOURCE_IRQ,
 		.name	=	"myled4[1_6]",
 	},
@@ -33,7 +35,7 @@ static struct platform_device myimx6ull_100ask_led_dev =
 	.num_resources 	=	ARRAY_SIZE(myledsrc),
 	.resource 		=	myledsrc,
 	.dev			=	{
-		.release	=	myimx6ull_100ask_led_dev_remove,
+	.release	=	myimx6ull_100ask_led_dev_remove,
 	},
 };
 
