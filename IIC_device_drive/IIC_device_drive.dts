@@ -1,0 +1,11 @@
+/ {
+        i2c_bus_virtual {
+                compatible = "i2c_bus_virtual";
+        };
+};
+&i2c1 {
+        ap3216c@1e {
+                        compatible = "atmel,ap3216";
+                        reg = <0x1e>;
+                };
+};
