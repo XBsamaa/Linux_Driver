@@ -11,4 +11,4 @@ clean:
 	rm -rf pgmAp3216
 
 
-obj-m	+= IIC_driver_ap3216.o
+obj-m	+= IIC_driver_ap3216.o i2c_bus_virtual_driver.o
